@@ -21,20 +21,8 @@ import UploadFileIcon from '@mui/icons-material/UploadFile';
 
 export default function ListPackages() {
     const titlePage = 'Listagem de Pacotes';
-    const [positions, setPositions] = useState<any[]>([]);
     const [packages, setPackages] = useState<any[]>([]);
-
-    const position: any = positions;
-
-    useEffect(() => {
-        async function getPositionsAll() {
-            await PositionService.getPositionsAll()
-                .then((response) => {
-                    setPositions(response.data.position);
-                })
-        }
-        getPositionsAll();
-    }, [])
+    console.log(packages);
 
     useEffect(() => {
         async function getPackagesAll() {
@@ -45,9 +33,7 @@ export default function ListPackages() {
         }
         getPackagesAll();
     }, [])
-
-
-
+    
     async function handleDelete(id: number) {
         if (window.confirm("Deseja realmente excluir o registro?")) {
             var result = await PackageService.deletePackage(id);
@@ -76,31 +62,31 @@ export default function ListPackages() {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {packages.map((row) => (
-                                    <TableRow key={row.id}>
+                                {Object.keys(packages).map((item: any, i: any) => (
+                                    <TableRow key={i}>
                                         <TableCell align="center" component="th" scope="row">
-                                            {row.name}
+                                            {packages[item].name}
                                         </TableCell>
-                                        <TableCell align="center">{row.description}</TableCell>
-                                        <TableCell align="center">{row.code_tracking}</TableCell>
-                                        <TableCell align="center">{row.position_id}</TableCell>
-                                        <TableCell align="center">{new Date(row.created_at).toLocaleString('pt-br')}</TableCell>
+                                        <TableCell align="center">{packages[item].description}</TableCell>
+                                        <TableCell align="center">{packages[item].code_tracking}</TableCell>
+                                        <TableCell align="center">{packages[item].positions.name}</TableCell>
+                                        <TableCell align="center">{new Date(packages[item].created_at).toLocaleString('pt-br')}</TableCell>
                                         <TableCell align="center">
                                             <ButtonGroup aria-label="outlined primary button group">
                                                 <Tooltip title="Detalhes do Pacote">
-                                                    <Button color="primary" href={`/packages/${row.id}/view`} ><PreviewIcon /></Button>
+                                                    <Button color="primary" href={`/packages/${packages[item].id}/view`} ><PreviewIcon /></Button>
                                                 </Tooltip>
                                                 <Tooltip title="Upload de arquivos">
-                                                    <Button color="primary" href={`/packages/${row.id}uploadFile`} ><UploadFileIcon /></Button>
+                                                    <Button color="primary" href={`/packages/${packages[item].id}uploadFile`} ><UploadFileIcon /></Button>
                                                 </Tooltip>
                                                 <Tooltip title="Alterar Status">
-                                                    <Button color="primary" href={`/packages/${row.id}/updatePackagePosition`} ><LocalShippingIcon /></Button>
+                                                    <Button color="primary" href={`/packages/${packages[item].id}/updatePackagePosition`} ><LocalShippingIcon /></Button>
                                                 </Tooltip>
                                                 <Tooltip title="Editar Pacote">
-                                                    <Button color="primary" href={`/packages/${row.id}/update`} ><EditIcon /></Button>
+                                                    <Button color="primary" href={`/packages/${packages[item].id}/update`} ><EditIcon /></Button>
                                                 </Tooltip>
                                                 <Tooltip title="Deletar Cadastro">
-                                                    <Button color="secondary" onClick={() => handleDelete(row.id)} ><DeleteIcon /></Button>
+                                                    <Button color="secondary" onClick={() => handleDelete(packages[item].id)} ><DeleteIcon /></Button>
                                                 </Tooltip>
                                             </ButtonGroup>
                                         </TableCell>

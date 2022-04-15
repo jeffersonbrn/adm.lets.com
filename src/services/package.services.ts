@@ -1,5 +1,6 @@
 import api from './api';
 import IpackageData from '../types/package.type';
+import IalterpositionData from '../types/alterposition.type';
 
 class PackageDataService {
     getPackagesAll() {
@@ -17,7 +18,7 @@ class PackageDataService {
         return api.put<any>(`/packages/${id}/update`, data);
     }
 
-    alterStatusPackage(data: any, id: any){
+    alterStatusPackage(data: IalterpositionData, id: any){
         return api.put<any>(`/packages/${id}/updatePackagePosition`, data);
     }
 

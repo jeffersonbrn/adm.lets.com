@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Layout from '../../components/layout';
 import Grid from '../../components/grid';
+import ButtonDefault from '../../components/button';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@mui/material/Box';
@@ -46,7 +47,7 @@ export default function EditPackage() {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if(isValid()) {
+        if (isValid()) {
             const data: PackageType = {
                 name,
                 description,
@@ -58,7 +59,7 @@ export default function EditPackage() {
                 complement,
                 state,
                 city
-            } 
+            }
             PackageService.createPackage(data)
                 .then((res) => {
                     setMessage("Pacote Cadastrado com sucesso");
@@ -88,7 +89,6 @@ export default function EditPackage() {
                 setCity(res.data.localidade);
             })
             .catch((err: any) => {
-                console.log(err);
                 const error: any = err as AxiosError;
                 setReturnCep("error" + JSON.stringify(error.response?.data.errors))
             })
@@ -97,6 +97,7 @@ export default function EditPackage() {
     return (
         <>
             <Layout titlePage={titlePage} >
+                <ButtonDefault nameButton={`Retornar a Lista`} urlButton={`/packages`} />
                 <div style={{ marginLeft: '1%' }}>
                     <TextField
                         required
@@ -113,6 +114,7 @@ export default function EditPackage() {
                     </Button>
                     <span style={{ marginLeft: '1%' }}>{returnCep ? returnCep : ""}</span>
                 </div>
+
                 <Grid>
                     <TableContainer component={Paper}>
                         <Box
@@ -129,15 +131,6 @@ export default function EditPackage() {
                         >
                             <div>
                                 <h4 style={{ marginLeft: '2%' }}>Dados de Entrega</h4>
-                                <TextField
-                                    required
-                                    id="cep"
-                                    name='cep'
-                                    label="CEP"
-                                    type="text"
-                                    variant="standard"
-                                    value={cep}
-                                />
                                 <TextField
                                     required
                                     id="road"
