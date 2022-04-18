@@ -9,7 +9,7 @@ import ViewPackage from '../pages/Package/view.package';
 import AddPackages from '../pages/Package/add.package';
 import EditPackages from '../pages/Package/edit.package';
 import AlterStatusPackages from '../pages/Package/alter.status.package';
-import UploadsPackages from '../pages/Package/uploads.packages';
+import UploadsPackages from '../pages/Upload/uploads.packages';
 
 const OtherRoutes: React.FC = () => {
 

@@ -22,10 +22,6 @@ class PackageDataService {
         return api.put<any>(`/packages/${id}/updatePackagePosition`, data);
     }
 
-    uploadsPackage(data: any, id: any){
-        return api.put<any>(`/packages/${id}/update`, data);
-    }
-
     deletePackage(id: any) {
         return api.delete<any>(`/packages/${id}/delete`);
     }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Layout from '../../components/layout';
 import Grid from '../../components/grid';
 import ButtonDefault from '../../components/button';
+import Spinner from '../../components/loadingage';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@mui/material/Box';
@@ -37,13 +38,14 @@ export default function EditPackage() {
     const [state, setState] = useState('');
     const [city, setCity] = useState('');
     const [message, setMessage] = useState('');
+    const [loading, setLoading] = useState(true);
     const { package_id } = useParams();
 
     useEffect(() => {
         async function getPackage() {
             await PackageService.getPackage(package_id)
                 .then((res: any) => {
-                    const { Package : {
+                    const { Package: {
                         position_id,
                         name,
                         description,
@@ -55,7 +57,7 @@ export default function EditPackage() {
                         complement,
                         state,
                         city
-                    }} = res.data;
+                    } } = res.data;
                     setPosition(res.data.Package.positions.name);
                     setName(name);
                     setDescription(description);
@@ -67,6 +69,7 @@ export default function EditPackage() {
                     setComplement(complement);
                     setState(state);
                     setCity(city);
+                    setLoading(false);
                 })
                 .catch((err: any) => {
                     const error: any = err as AxiosError;
@@ -120,6 +123,7 @@ export default function EditPackage() {
                 <ButtonDefault nameButton={`Retornar a Lista`} urlButton={`/packages`} />
                 <Grid>
                     <TableContainer component={Paper}>
+                        {loading ? <Spinner /> : ""}
                         <Box
                             component="form"
                             sx={{

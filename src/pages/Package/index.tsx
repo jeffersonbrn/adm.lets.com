@@ -77,7 +77,7 @@ export default function ListPackages() {
                                                     <Button color="primary" href={`/packages/${packages[item].id}/view`} ><PreviewIcon /></Button>
                                                 </Tooltip>
                                                 <Tooltip title="Upload de arquivos">
-                                                    <Button color="primary" href={`/packages/${packages[item].id}uploadFile`} ><UploadFileIcon /></Button>
+                                                    <Button color="primary" href={`/packages/${packages[item].id}/uploadFile`} ><UploadFileIcon /></Button>
                                                 </Tooltip>
                                                 <Tooltip title="Alterar Status">
                                                     <Button color="primary" href={`/packages/${packages[item].id}/updatePackagePosition`} ><LocalShippingIcon /></Button>
